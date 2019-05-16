@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/gijgo.min.js" type="text/javascript"></script>
+
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link href="/css/gijgo.min.css" rel="stylesheet" type="text/css" />
+    
+    <title>Document</title>
+</head>
+<body>
+    <div class="card-body">
+        <div class="card-title">Регистрация</div>
+        <div class="card-title"><b>Паспортные данные</b></div>       
+        <form action="" method="POST">
+            <div class="form-group">
+                <label for="fio">ФИО:</label>
+                <input type="text" name="fio" class="form-control" id="fio" placeholder="ФИО" required>
+                <label for="pol">Пол:</label>
+                <select name = "pol" class="form-control" id="pol">
+                   <option value="1">Муж.</option>
+                   <option value="2">Жен.</option> 
+                </select>
+                <label for="dataRoj">Дата рождения:</label>
+                <input name="dataRoj" id="dataRoj" width="276" readonly/>
+                <label for="gruppaKrovi">Группа крови по системе АВО: </label>
+                <select name="gruppaKrovi" class="form-control" id="gruppaKrovi">
+                    <option value="0">Нет данных</option>
+                    <option value="1">0(I)</option>
+                    <option value="2">А(II)</option>
+                    <option value="3">В(III)</option>
+                    <option value="4">АВ(IV)</option>
+                </select>
+                <label for="rezusFaktor">Резус-фактор: </label>
+                <select name="rezusFaktor" class="form-control" id="rezusFaktor">
+                    <option value="0">Нет данных</option>
+                    <option value="1">положительный</option>
+                    <option value="2">отрицательный</option>
+                </select>
+                <label for="natsionalnost">Национальность: </label>
+                <select name="natsionalnost" class="form-control" id="natsionalnost">
+                        <% for nat in nationalities %>
+                            <option value="<$ nat.code $>"><$ nat.name $></option>
+                        <% endfor %>
+                </select>
+                <label for="idNomer">ID (идентификационный номер) больного </label>
+                <input type="text" name="IdNomer" class="form-control" id="idNomer" placeholder="ID">
+                <label for="naiOtd">Наименование отделения</label>
+                <input type="text" name="naiOtd" class="form-control" id="naiOtd" placeholder="">
+                <label for="statusBol">Последний известный статус больного:</label>
+                <select name="statusBol" class="form-control" id="statusBol">
+                    <option value="0">Нет данных</option>
+                    <option value="1">Жив</option>
+                    <option value="2">Выбыл из-под наблюдения по причине эмиграции</option>
+                    <option value="3">Выбыл из-под наблюдения по причине снятия диагноза</option>
+                </select>
+                <label for="ambKarta">№ амбулаторной карты</label> 
+                <input type="text" name="ambKarta" class="form-control" id="ambKarta" placeholder="">
+                <label for="istoriyaBol">№ истории болезни</label> 
+                <input type="text" name="istoriyaBol" class="form-control" id="istoriyaBol" placeholder="">
+                <div class="card-title"><b>Адрес больного:</b></div>
+                <label for="strana">Страна:</label>
+                <select name="strana" class="form-control" id="strana">
+                    <option value="1">Узбекистан</option>
+                    <option value="2">другая</option>
+                </select>     
+                <label for="oblast">Область: </label>
+                <select name="oblast" class="form-control" id="oblast">
+                        <% for prov in provinces %>
+                            <option value="<$ prov.code $>"><$ prov.name $></option>
+                        <% endfor %>
+                </select>
+                <label for="address">Город,Район/село,Улица,Дом Квартира</label>
+                <textarea name="address" class="form-control" id="address" cols="30" rows="10" placeholder="Город,Район/село,Улица,Дом Квартира"></textarea>
+                <label for="telefon">Телефон:</label>
+                <input type="text" name="telefon" class="form-control" id="telefon" placeholder="Телефон">
+                <label for="passportSeria">Серия паспорта:</label>
+                <input type="text" name="passportSeria" class="form-control" id="passportSeria" placeholder="Серия паспорта">
+                <button type="submit" class="btn btn-success">Регистрация</button>
+            </div>
+        </form>
+    </div>
+    <script>
+        $('#dataRoj').datepicker({
+        uiLibrary: 'bootstrap4',
+        format: 'dd/mm/yyyy'
+        });
+    </script>
+</body>
+</html>
