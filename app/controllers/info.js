@@ -1,22 +1,19 @@
 'use strict';
-const Nationality = require('../models').nationality;
-const Province = require('../models').province;
+const Nationality = require(`../models`).nationality;
+const Province = require(`../models`).province;
 
-exports.index = async(req, res) =>  {
+const apiView = require(`../views/apiView`);
 
-        let nationalities = await Nationality.findAll().then(nats => {
-            return nats.map(nat => ({'code': nat.code, 'name': nat.name}));
-        });
-        let provinces = await Province.findAll().then(provs => {
-            return provs.map(prov => ({'code': prov.code, 'name': prov.name}));
-        });
-      
-        return res.render('index',{
-            nationalities: nationalities,
-            provinces: provinces
-        });
-}
+exports.getProvinces = async (req, res) => {
+  let provinces = await Province.findAll().then(provs => {
+    return provs.map(prov => ({ 'code': prov.code, 'name': prov.name }));
+  });
+  return res.status(200).send(apiView.success(`OK`, `Provinces`, provinces));
+};
 
-exports.create = (req, res) => {
-    res.status(200).send(JSON.stringify(req.body));
-}
+exports.getNationalities = async (req, res) => {
+  let nationalities = await Nationality.findAll().then(nats => {
+    return nats.map(nat => ({ 'code': nat.code, 'name': nat.name }));
+  });
+  return res.status(200).send(apiView.success(`OK`, `Nationalities`, nationalities));
+};

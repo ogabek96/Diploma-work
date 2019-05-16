@@ -1,39 +1,19 @@
-'use strict'
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const nunjucks = require('nunjucks');
+'use strict';
 
-const regRouter = require('./routers/reg');
+const express = require(`express`);
+const bodyParser = require(`body-parser`);
+
+const regRouter = require(`./routers/reg`);
+const infoRouter = require(`./routers/info`);
 
 const app = express();
 
-app.set('views', path.join(__dirname, 'app/views'));
+app.use(bodyParser.urlencoded({ extended: true }));
 
-nunjucks.configure('app/views', {
-    express: app,
-    autoescape: true,
-    tags: {
-        blockStart: `<%`,
-        blockEnd: `%>`,
-        variableStart: `<$`,
-        variableEnd: `$>`,
-        commentStart: `<#`,
-        commentEnd: `#>`
-      }
-});
+app.use(`/reg`, regRouter);
 
-app.set('view engine', 'html');
-
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, 'public')));
-
-app.get('/', (req, res) => {
-    res.redirect('/reg');
-})
-
-app.use('/reg', regRouter); 
+app.use(`/info`, infoRouter);
 
 app.listen(3000, () => {
-    console.log('Server is started...')
+  console.log(`Server is started...`);
 });
