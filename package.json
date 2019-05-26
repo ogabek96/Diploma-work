@@ -10,14 +10,17 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^3.0.6",
     "body-parser": "^1.18.3",
     "express": "^4.16.4",
     "express-nunjucks": "^2.2.3",
+    "jsonwebtoken": "^8.5.1",
     "nodemon": "^1.18.10",
     "nunjucks": "^3.2.0",
     "pg": "^7.11.0",
     "pg-hstore": "^2.3.2",
-    "sequelize": "^4.44.0"
+    "sequelize": "^4.44.0",
+    "verbal-expressions": "^1.0.0"
   },
   "devDependencies": {
     "eslint": "^5.16.0"
