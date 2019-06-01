@@ -5,7 +5,9 @@ const bodyParser = require(`body-parser`);
 
 const commonRouter = require(`./routers/common`);
 const authRouter = require(`./routers/auth`);
+
 const patientsRouter = require(`./routers/patients`);
+const firstEvaluationRouter = require(`./routers/first-evaluation`);
 
 const middleware = require(`./app/middlewares/main`);
 const app = express();
@@ -18,6 +20,8 @@ app.use((req, res, next) => {
 });
 
 app.use(`/patients`, patientsRouter);
+
+app.use(`/first-evaluation`, firstEvaluationRouter);
 
 app.use(`/common`, commonRouter);
 

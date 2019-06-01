@@ -1,6 +1,6 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const Patient = sequelize.define(`Patient`, {
+  const Patient = sequelize.define(`patient`, {
     fullName: {
       type: DataTypes.STRING
     },
@@ -54,9 +54,9 @@ module.exports = (sequelize, DataTypes) => {
     },
   }, {});
   Patient.associate = function (models) {
+    Patient.hasMany(models.firstEvaluation);
     // Patient.belongsTo(models.province, { foreignKey: `id`, targetKey: `province` });
     // Patient.belongsTo(models.nationality, { foreignKey: `code`, targetKey: `nationality` });
-
   };
   return Patient;
 };

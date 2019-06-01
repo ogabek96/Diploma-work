@@ -1,27 +1,27 @@
 "use strict";
 const express = require(`express`);
-const patients = require(`../app/controllers/patients`);
+const firstEvaluation = require(`../app/controllers/first-evaluation`);
 
 const router = express.Router();
 
 router.get(`/`, (req, res) => {
-  patients.getAll(req, res);
+  firstEvaluation.getAll(req, res);
 });
 
 router.post(`/`, (req, res) => {
-  patients.create(req, res);
+  firstEvaluation.create(req, res);
 });
 
 router.get(`/:id`, (req, res) => {
-  patients.getById(req, res);
+  firstEvaluation.getById(req, res);
 });
 
 router.put(`/:id`, (req, res) => {
-  patients.update(req, res);
+  firstEvaluation.update(req, res);
 });
 
 router.delete(`/:id`, (req, res) => {
-  patients.delete(req, res);
+  firstEvaluation.delete(req, res);
 });
 
 module.exports = router;

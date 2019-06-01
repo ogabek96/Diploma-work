@@ -1,16 +1,26 @@
 'use strict';
 const Op = require(`sequelize`).Op;
-
 const Patient = require(`../models`).patient;
+const FirstEvaluation = require(`../models`).firstEvaluation;
 
 const apiView = require(`../views/api-view`);
 
 exports.create = async (req, res) => {
-  const newPatient = req.body;
-  Patient.create(newPatient)
+  const newFirstEvaluation = req.body;
+  const patientId = req.query.patientId;
+  Patient.findByPk(patientId)
   .then(patient => {
-    return res.status(200).send(apiView.success(`OK`, `Patient`, { patient }));
+    if (patient) {
+      patient.createFirstEvaluation(newFirstEvaluation)
+      .then(firstEvaluation => {
+        return res.status(200).send(apiView.success(`OK`, `First evaluation`, { firstEvaluation }));
+      });
+    }
   });
+  // FirstEvaluation.create(newFirstEvaluation)
+  // .then(firstEvaluation => {
+  //   return res.status(200).send(apiView.success(`OK`, `First evaluation`, { firstEvaluation }));
+  // });
 };
 
 exports.getAll = async (req, res) => {
