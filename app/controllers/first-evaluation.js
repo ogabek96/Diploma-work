@@ -2,7 +2,6 @@
 const Op = require(`sequelize`).Op;
 const Patient = require(`../models`).patient;
 const FirstEvaluation = require(`../models`).firstEvaluation;
-
 const apiView = require(`../views/api-view`);
 
 exports.create = async (req, res) => {
@@ -17,60 +16,62 @@ exports.create = async (req, res) => {
       });
     }
   });
-  // FirstEvaluation.create(newFirstEvaluation)
-  // .then(firstEvaluation => {
-  //   return res.status(200).send(apiView.success(`OK`, `First evaluation`, { firstEvaluation }));
-  // });
 };
 
 exports.getAll = async (req, res) => {
-  return Patient.findAll()
-  .then(patients => {
-    return res.status(200).send(apiView.success(`OK`, `Patients`, { patients }));
+  const patientId = req.query.patientId;
+  return Patient.findByPk(patientId)
+  .then(patient => {
+    if (patient) {
+      patient.getFirstEvaluations()
+      .then(firstEvaluation => {
+        return res.status(200).send(apiView.success(`OK`, `First evaluation`, { firstEvaluation }));
+      });
+    }
   });
 };
 
 exports.getById = async (req, res) => {
   const id = req.params.id;
-  return Patient.findOne({
+  return FirstEvaluation.findOne({
     where: {
       id: {
         [Op.eq]: id
       }
     }
   })
-  .then(patient => {
-    return res.status(200).send(apiView.success(`OK`, `Patient`, { patient }));
+  .then(firstEvaluation => {
+    return res.status(200).send(apiView.success(`OK`, `First Evaluation`, { firstEvaluation }));
   });
 };
 
 exports.update = async (req, res) => {
-  const patientReq = req.body;
-  return Patient.findOne({
+  const firstEvaluationReq = req.body;
+  return FirstEvaluation.findOne({
     where: {
       id: {
-        [Op.eq]: patientReq.id
+        [Op.eq]: firstEvaluationReq.id
       }
     }
   })
-  .then(patient => {
-    return patient.update(patientReq)
-    .then(updatedPatient => {
-      return res.status(200).send(apiView.success(`OK`, `Patient`, { patient: updatedPatient }));
+  .then(firstEvaluation => {
+    return firstEvaluation.update(firstEvaluationReq)
+    .then(updatedfirstEvaluation => {
+      return res.status(200).send(apiView.success(`OK`, `First Evaluation`, { firstEvaluation: updatedfirstEvaluation }));
     });
   });
 };
 
 exports.delete = async (req, res) => {
   const id = req.params.id;
-  return Patient.destroy({
+  return FirstEvaluation.destroy({
     where: {
       id: {
         [Op.eq]: id
       }
     }
   })
-  .then(deletedPatient => {
-    return res.status(200).send(apiView.success(`OK`, `Patient`, { }));
+  .then(() => {
+    return res.status(200).send(apiView.success(`OK`, `First Evaluation`, { }));
   });
 };

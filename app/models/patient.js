@@ -55,6 +55,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {});
   Patient.associate = function (models) {
     Patient.hasMany(models.firstEvaluation);
+    Patient.hasMany(models.anamnestic);
+    Patient.hasMany(models.diagnosis);
     // Patient.belongsTo(models.province, { foreignKey: `id`, targetKey: `province` });
     // Patient.belongsTo(models.nationality, { foreignKey: `code`, targetKey: `nationality` });
   };

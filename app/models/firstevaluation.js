@@ -1,11 +1,11 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
   const firstEvaluation = sequelize.define(`firstEvaluation`, {
-    nameInstitution: DataTypes.STRING,
+    nameInstitution: DataTypes.INTEGER,
     comingDate: DataTypes.DATE,
     evaluationDate: DataTypes.DATE,
     firstComingDate: DataTypes.DATE,
-    circsDisease: DataTypes.STRING,
+    circsDisease: DataTypes.INTEGER,
     guidingDiagnosis: DataTypes.STRING,
     firstDiagnosis: DataTypes.STRING,
     fullNameDoctor: DataTypes.STRING,

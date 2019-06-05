@@ -8,7 +8,8 @@ const authRouter = require(`./routers/auth`);
 
 const patientsRouter = require(`./routers/patients`);
 const firstEvaluationRouter = require(`./routers/first-evaluation`);
-
+const anamnesticRouter = require(`./routers/anamnestic`);
+const diagnosisRouter = require(`./routers/diagnosis`);
 const middleware = require(`./app/middlewares/main`);
 const app = express();
 
@@ -22,6 +23,10 @@ app.use((req, res, next) => {
 app.use(`/patients`, patientsRouter);
 
 app.use(`/first-evaluation`, firstEvaluationRouter);
+
+app.use(`/anamnestic`, anamnesticRouter);
+
+app.use(`/diagnosis`, diagnosisRouter);
 
 app.use(`/common`, commonRouter);
 

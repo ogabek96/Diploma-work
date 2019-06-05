@@ -9,7 +9,7 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       nameInstitution: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       comingDate: {
         type: Sequelize.DATE
@@ -21,7 +21,7 @@ module.exports = {
         type: Sequelize.DATE
       },
       circsDisease: {
-        type: Sequelize.STRING
+        type: Sequelize.INTEGER
       },
       guidingDiagnosis: {
         type: Sequelize.STRING
