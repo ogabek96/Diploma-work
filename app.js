@@ -1,39 +1,37 @@
-'use strict'
-const path = require('path');
-const express = require('express');
-const bodyParser = require('body-parser');
-const nunjucks = require('nunjucks');
+'use strict';
 
-const regRouter = require('./routers/reg');
+const express = require(`express`);
+const bodyParser = require(`body-parser`);
 
+const commonRouter = require(`./routers/common`);
+const authRouter = require(`./routers/auth`);
+
+const patientsRouter = require(`./routers/patients`);
+const firstEvaluationRouter = require(`./routers/first-evaluation`);
+const anamnesticRouter = require(`./routers/anamnestic`);
+const diagnosisRouter = require(`./routers/diagnosis`);
+const middleware = require(`./app/middlewares/main`);
 const app = express();
 
-app.set('views', path.join(__dirname, 'app/views'));
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
 
-nunjucks.configure('app/views', {
-    express: app,
-    autoescape: true,
-    tags: {
-        blockStart: `<%`,
-        blockEnd: `%>`,
-        variableStart: `<$`,
-        variableEnd: `$>`,
-        commentStart: `<#`,
-        commentEnd: `#>`
-      }
+app.use((req, res, next) => {
+  middleware.index(req, res, next);
 });
 
-app.set('view engine', 'html');
+app.use(`/patients`, patientsRouter);
 
-app.use(bodyParser.urlencoded({extended: true}));
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(`/first-evaluation`, firstEvaluationRouter);
 
-app.get('/', (req, res) => {
-    res.redirect('/reg');
-})
+app.use(`/anamnestic`, anamnesticRouter);
 
-app.use('/reg', regRouter); 
+app.use(`/diagnosis`, diagnosisRouter);
+
+app.use(`/common`, commonRouter);
+
+app.use(`/auth`, authRouter);
 
 app.listen(3000, () => {
-    console.log('Server is started...')
+  console.log(`Server is started...`);
 });
